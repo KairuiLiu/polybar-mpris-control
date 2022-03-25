@@ -1,14 +1,15 @@
-# ploybar-mpris-control
+# Ploybar Mpris Control
 
 🎶This polybar module displays mpris-enabled media information on your device. Besides, it use [zscroll](https://github.com/noctuid/zscroll) to display information in a small place.
 
 🤗 Many ideas and codes come from [PrayagS/polybar-spotify](https://github.com/PrayagS/polybar-spotify), thanks a lot!
 
-### Preview
+### Features and Previews
 
 - Show Informations  
   ![normal-bar](/images/normal-bar.png)
-- player switch  
+- Adjust volume by scrolling on left icon, progress bar or song title(only works in very few players)
+- player switch(Just click the left icon to open)  
   ![player-switch](/images/player-switch.png)
 - Can change menu icon if the player is chromium/ firefox/ spotify/ vlc
   - using chromium  
@@ -18,7 +19,7 @@
   - using vlc  
     ![vlc-bar](/images/vlc-bar.png)
   - using spotify  
-    Sorry, I don't use spotify. 🤦‍♂️
+    ![spotify-bar](/images/spotify-bar.png)
 
 ### Dependencies
 
@@ -26,7 +27,7 @@
 - [rofi](https://github.com/davatorium/rofi): To provide player switch
 - icomoon font family: To provides icon fonts on polybar. You can replace the icon in the code to remove the dependency.
 
-#### Config
+### Config
 
 - move `/mpris` to `~/.config/polybar/scripts/`
 - add modules in `config.ini`
@@ -41,14 +42,19 @@
   exec = ~/.config/polybar/scripts/mpris/mpris_control.sh --icon
   format = <label>
   click-left = ~/.config/polybar/scripts/mpris/mpris_control.sh --select
+  scroll-up = ~/.config/polybar/scripts/mpris/mpris_control.sh --vc 0.05+
+  scroll-down = ~/.config/polybar/scripts/mpris/mpris_control.sh --vc 0.05-
 
   [module/mrpis-status]
 
   type = custom/script
   tail = true
   interval = 1
+  ; prefix symbol is shown before the text
   format = <label>
   exec = ~/.config/polybar/scripts/mpris/scoll.sh
+  scroll-up = ~/.config/polybar/scripts/mpris/mpris_control.sh --vc 0.05+
+  scroll-down = ~/.config/polybar/scripts/mpris/mpris_control.sh --vc 0.05-
 
   [module/mrpis-prev]
   type = custom/script
@@ -75,6 +81,8 @@
   ; prefix symbol is shown before the text
   format = <label>
   exec = ~/.config/polybar/scripts/mpris/mpris_control.sh --process
+  scroll-up = ~/.config/polybar/scripts/mpris/mpris_control.sh --vc 0.05+
+  scroll-down = ~/.config/polybar/scripts/mpris/mpris_control.sh --vc 0.05-
   ```
 
 ### Customize

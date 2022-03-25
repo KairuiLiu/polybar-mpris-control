@@ -8,3 +8,5 @@ zscroll -l 30 \
 
 wait
 
+# --match-text "Playing" "--scroll 1" \
+# --match-text "Paused" "--scroll 0" \

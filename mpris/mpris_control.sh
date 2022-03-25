@@ -1,15 +1,17 @@
 #!/bin/bash
-# commands mrpis_control [cmd]
-#   cmd: select     : select a player as current player
-#        showmenu   : show a player select menu
-#        status     : get songs meta info
-#        playpause  : toggle play state
+# commands: mrpis_control --[cmd]
+#   cmd: select     : show a player select menu and select a player as current player
+#        title      : get song's meta info
+#        playpause  : toggle play/pause
 #        next       : switch to next music
 #        previous   : switch to last music
+#        icon       : get icon of players
+#        process    : get process
+#        vc         : volume control
 
 PARENT_BAR_PID=$(pgrep -a "polybar" | cut -d" " -f1)
 PLAYERS=($(playerctl -l 2>/dev/null))
-FORMAT="'{{ playerName }}: {{ artist }} - {{ title }}'"
+FORMAT="'{{ title }} - {{ artist }}'"
 FORMAT_PROCESS="'{{ duration(position)}}/{{duration(mpris:length) }}'"
 PLAYER_STATUS=-1
 CUR_PLAYER=$(cat ~/.config/polybar/.curplayer.log)
@@ -50,7 +52,8 @@ update_state() {
 }
 
 get_title() {
-    echo $(playerctl --player=${CUR_PLAYER} metadata --format '{{ artist }} {{ title }}' 2>/dev/null)
+    cmd="playerctl --player=${CUR_PLAYER} metadata --format $FORMAT 2>/dev/null"
+    eval $cmd
 }
 
 toggle_play() {
@@ -65,19 +68,17 @@ to_previous() {
     playerctl --player=${CUR_PLAYER} previous 2>/dev/null
 }
 
-to_vup() {
-    playerctl --player=${CUR_PLAYER} next 2>/dev/null
-}
-
-to_vdown() {
-    playerctl --player=${CUR_PLAYER} next 2>/dev/null
+to_volume() {
+    playerctl --player=${CUR_PLAYER} volume $1 2>/dev/null
 }
 
 get_process() {
-    if [ $(playerctl --player=${CUR_PLAYER} metadata --format '{{ duration(position)}}/{{duration(mpris:length) }}' 2>/dev/null) = "0:00/" ]; then
+    cmd="playerctl --player=${CUR_PLAYER} metadata --format $FORMAT_PROCESS 2>/dev/null"
+    proc=$(eval $cmd)
+    if [ "$proc" = "0:00/" ]; then
         echo ""
     else
-        echo $(playerctl --player=${CUR_PLAYER} metadata --format '{{ duration(position)}}/{{duration(mpris:length) }}' 2>/dev/null)
+        echo "$proc"
     fi
 }
 
@@ -131,7 +132,7 @@ elif [ "$1" == "--select" ]; then
     show_menu_selector
 elif [ "$1" == "--title" ]; then
     if [ $PLAYER_STATUS -eq -1 ]; then
-        echo "NO PLAYER FOUNDED"
+        echo "PLAYER NOT FOUND"
     elif [ $PLAYER_STATUS -eq 0 ]; then
         echo "NO MUSIC IS PLAYING"
     else
@@ -149,4 +150,6 @@ elif [ "$1" == "--next" ]; then
     to_next
 elif [ "$1" == "--previous" ]; then
     to_previous
+elif [ "$1" == "--vc" ]; then
+    to_volume $2
 fi
