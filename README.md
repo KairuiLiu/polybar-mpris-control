@@ -89,4 +89,4 @@
 
 - You can replace the icons on polybar, two good website to choose icons are: [Nerd Fonts](https://www.nerdfonts.com/cheat-sheet), [FontAwsome](https://fontawesome.com/v5/cheatsheet). **Always be aware that you are using an available font family**
 - You can add lyrics display just copy modify the mrpis-status module. This requires the player to write the lyrics to `metadata.someattribute` (although this may not be language compliant)
-- For [YesPlayMusic](https://github.com/qier222/YesPlayMusic) user, I recommend to use the [polybar-yesplaymusic-lyrics](https://github.com/KairuiLiu/polybar-yesplaymusic-lyrics] to show lyrics on polybar
+- For [YesPlayMusic](https://github.com/qier222/YesPlayMusic) user, I recommend to use the [polybar-yesplaymusic-lyrics](https://github.com/KairuiLiu/polybar-yesplaymusic-lyrics) to show lyrics on polybar
