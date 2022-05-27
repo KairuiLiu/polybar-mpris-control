@@ -1,4 +1,4 @@
-# Ploybar Mpris Control
+# Polybar Mpris Control
 
 🎶This polybar module displays mpris-enabled media information on your device. Besides, it use [zscroll](https://github.com/noctuid/zscroll) to display information in a small place.
 
