@@ -52,7 +52,7 @@
   interval = 1
   ; prefix symbol is shown before the text
   format = <label>
-  exec = ~/.config/polybar/scripts/mpris/scoll.sh
+  exec = ~/.config/polybar/scripts/mpris/scroll.sh
   scroll-up = ~/.config/polybar/scripts/mpris/mpris_control.sh --vc 0.05+
   scroll-down = ~/.config/polybar/scripts/mpris/mpris_control.sh --vc 0.05-
 
