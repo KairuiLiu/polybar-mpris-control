@@ -90,7 +90,7 @@ show_menu_selector() {
         options="${options}${t} ${i}*"
     done
     options="${options} Exit"
-    menu="$(rofi -sep "*" -dmenu -i -p "Choose Player" -location 0 -hide-scrollbar -line-padding 4 -padding 20 -kb-row-select "Tab" -kb-row-tab "" <<<${options})"
+    menu="$(rofi -sep "*" -dmenu -i -p "Choose Player" -location 0 -hide-scrollbar -line-padding 4 -padding 20 -kb-row-tab "" <<<${options})"
     menu=${menu:2}
     if [ menu == "Exit" ]; then
         return
