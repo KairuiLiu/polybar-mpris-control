@@ -51,6 +51,16 @@ update_state() {
     fi
 }
 
+query_playing_status() {
+    CUR_PLAYER=$(cat ~/.config/polybar/.curplayer.log)
+    status=$(playerctl --player=$CUR_PLAYER status 2>/dev/null)
+    if [ "$status" == "Playing" ]; then
+        echo ""
+    else
+        echo ""
+    fi
+}
+
 get_title() {
     cmd="playerctl --player=${CUR_PLAYER} metadata --format $FORMAT 2>/dev/null"
     eval $cmd
@@ -152,4 +162,6 @@ elif [ "$1" == "--previous" ]; then
     to_previous
 elif [ "$1" == "--vc" ]; then
     to_volume $2
+elif [ "$1" == "--playingstatus" ]; then
+    query_playing_status   
 fi
