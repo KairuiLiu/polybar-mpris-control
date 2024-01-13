@@ -64,8 +64,9 @@
 
   [module/mrpis-play-pause]
   type = custom/script
-  exec = echo "懶"
+  exec = ~/.config/polybar/scripts/mpris/mpris_control.sh --playingstatus
   format = <label>
+  interval = 1
   click-left = ~/.config/polybar/scripts/mpris/mpris_control.sh --playpause
 
   [module/mrpis-next]
